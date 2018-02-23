@@ -1,5 +1,7 @@
+//Imports
 import java.sql.*;
 
+//Class
 public class DB_Connector {
 
     //Variables
@@ -8,6 +10,7 @@ public class DB_Connector {
     private static String pass = "1234";
     private static Connection conn = null;
 
+    //Methods
     public static Connection connect() {
 
         System.out.println("\n--- Connection to PostgreSQL JDBC ---");
