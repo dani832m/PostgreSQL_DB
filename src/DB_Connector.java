@@ -2,6 +2,7 @@ import java.sql.*;
 
 public class DB_Connector {
 
+    //Variables
     private static String url = "jdbc:postgresql://localhost:5432/Daniel";
     private static String user = "postgres";
     private static String pass = "1234";
