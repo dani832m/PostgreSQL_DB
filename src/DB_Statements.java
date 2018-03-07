@@ -28,20 +28,22 @@ public class DB_Statements {
         String query2 = "select * from employee";
 
         try {
+            //Take an Employee Object and convert it to a Byte array
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(baos);
             oos.writeObject(employee);
 
             byte[] employeeAsByte = baos.toByteArray();
 
+            //Create a PreparedStatement
             pst = con.prepareStatement(query1);
 
+            //Place the converted object into the input stream
             ByteArrayInputStream bais = new ByteArrayInputStream(employeeAsByte);
-
             pst.setBinaryStream(1, bais, employeeAsByte.length);
 
+            //Execute the query
             pst.executeUpdate();
-
             System.out.println("\n--- Query1 executed ---");
         }
 
@@ -50,24 +52,35 @@ public class DB_Statements {
             System.out.println("\n--- Query1 did not execute ---");
         }
 
-        try {
-            stmt = con.createStatement();
-            rs = stmt.executeQuery(query2);
+    }
 
+    public void retrieveData() {
+
+        String query = "select * from employee";
+
+        try {
+            //Create a Statement
+            stmt = con.createStatement();
+
+            //Execute the ResultSet
+            rs = stmt.executeQuery(query);
+
+            //Return all rows from the table
             while(rs.next()) {
                 byte[] st = (byte[])rs.getObject(2);
                 ByteArrayInputStream baip = new ByteArrayInputStream(st);
                 ObjectInputStream ois = new ObjectInputStream(baip);
-                Employee emp = (Employee)ois.readObject();
-                System.out.println("\n---" + emp.toString() + " ---");
+                Employee emp = (Employee) ois.readObject();
+                System.out.println("\n" + emp.toString());
             }
 
             System.out.println("\n--- Retrieve executed ---");
         }
 
+        //Handle all possible Exceptions
         catch (Exception e) {
             e.printStackTrace();
-            System.out.println("\n--- Retrieve did not execute");
+            System.out.println("\n--- Retrieve did not execute ---");
         }
 
     }

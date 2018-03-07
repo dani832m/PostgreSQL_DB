@@ -25,6 +25,7 @@ public class DB_Connector {
 
         if (conn != null) {
             System.out.println("\n-- Connection successful ---");
+            System.out.println("\n--- You are logged in as " + user + " ---");
         } else {
             System.out.println("\n-- Connection failed ---");
         }
